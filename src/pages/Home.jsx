@@ -6,11 +6,23 @@ const Home = () => {
   return (
     <>
       <Main />
-      <Filas titulo="Up Coming" fetchUrl={requests.requestUpcoming} />
-      <Filas titulo="Popular" fetchUrl={requests.requestPopular} />
-      <Filas titulo="Trending" fetchUrl={requests.requestTrending} />
-      <Filas titulo="Top Rated" fetchUrl={requests.requestTopRated} />
-      <Filas titulo="Horror" fetchUrl={requests.requestHorror} />
+      <Filas
+        filasId="1"
+        titulo="Próximamente"
+        fetchUrl={requests.requestUpcoming}
+      />
+      <Filas filasId="2" titulo="Popular" fetchUrl={requests.requestPopular} />
+      <Filas
+        filasId="3"
+        titulo="Tendencias"
+        fetchUrl={requests.requestTrending}
+      />
+      <Filas
+        filasId="4"
+        titulo="Los más valorados"
+        fetchUrl={requests.requestTopRated}
+      />
+      <Filas filasId="5" titulo="Horror" fetchUrl={requests.requestHorror} />
     </>
   );
 };
