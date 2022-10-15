@@ -1,9 +1,31 @@
 import { FaHeart, FaRegHeart } from "react-icons/fa";
 import { useState } from "react";
+import {UserAuth} from '../context/AuthContext'
+import {db} from '../firebase'
+import {arrayUnion, doc, updateDoc} from 'firebase/firestore'
 
 const Peliculas = ({ item, id }) => {
   const [like, setLike] = useState(false);
+  const [guardar, setGuardar] = useState(false)
+  const {user} = UserAuth()
 
+  const peliculaId = doc(db, 'users' , `${user?.email}`)
+
+  const guardarPelicula = async () =>{
+    if(user?.email){
+      setLike(!like)
+      setGuardar(true)
+      await updateDoc(peliculaId, {
+        savedShows: arrayUnion({
+          id: item.id,
+          title: item.title,
+          img: item.backdrop_path
+        })
+      })
+    }else{
+      alert('error')
+    }
+  }
   return (
     <div className="w-[160px] sm:w-[200px] md:w-[240px] lg:w-[280px] inline-block cursor-pointer   relative p-2">
       <img
@@ -16,7 +38,7 @@ const Peliculas = ({ item, id }) => {
           {item?.title}
         </p>
 
-        <p>
+        <p onClick={guardarPelicula}>
           {like ? (
             <FaHeart className="absolute top-4 left-4 text-gray-300" />
           ) : (
